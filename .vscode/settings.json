@@ -7,5 +7,25 @@
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#fcfe8a",
+    "activityBar.background": "#fcfe8a",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#02babe",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#fcfe8a",
+    "statusBar.background": "#fafe57",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#f8fe24",
+    "statusBarItem.remoteBackground": "#fafe57",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#fafe57",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#fafe5799",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#FAFE57"
 }

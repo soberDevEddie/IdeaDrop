@@ -7,7 +7,7 @@ export const Route = createRootRoute({
     meta: [
       {name:'description', content: 'Share, explore and build on the best startup ideas and side hustles.'},
       {
-        title:'IdeaDrop-'
+        title:'IdeaDrop - Your Idea Hub'
       }
     ]
   }),
