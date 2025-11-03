@@ -71,18 +71,6 @@
         "ai"
       ],
       "createdAt": "2025-04-24T13:10:00.000Z"
-    },
-    {
-      "id": "2b8a",
-      "title": "Eddie's New Idea",
-      "summary": "loremipsum",
-      "description": "Tempor duis anim culpa consequat ea exercitation eu aliqua.",
-      "tags": [
-        "web",
-        "webdev",
-        "programming"
-      ],
-      "createdAt": "2025-11-03T21:48:51.810Z"
     }
   ]
 }
