@@ -1,12 +1,12 @@
 import { createFileRoute, useNavigate, Link } from '@tanstack/react-router';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import {
   useMutation,
   queryOptions,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
-import { fetchIdea } from '@/api/ideas';
+import { fetchIdea, updateIdea } from '@/api/ideas';
 
 const ideaQueryOptions = (id: string) =>
   queryOptions({
@@ -31,10 +31,35 @@ function IdeaEditPage() {
   const [description, setDescription] = useState(idea.description);
   const [tagsinput, setTagsInput] = useState(idea.tags.join(', '));
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: () =>
+      updateIdea(ideaId, {
+        title,
+        summary,
+        description,
+        tags: tagsinput
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+      }),
+    onSuccess: () => {
+      navigate({
+        to: '/ideas/$ideaId',
+        params: { ideaId },
+      });
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isPending) return;
+    await mutateAsync();
+  };
+
   return (
     <div className='space-y-4'>
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">Edit Idea</h1>
+      <div className='flex justify-between items-center mb-4'>
+        <h1 className='text-3xl font-bold'>Edit Idea</h1>
         <Link
           to='/ideas/$ideaId'
           params={{ ideaId }}
@@ -43,8 +68,8 @@ function IdeaEditPage() {
           ← Back to Idea
         </Link>
       </div>
-    
-      <form className='space-y-2'>
+
+      <form onSubmit={handleSubmit} className='space-y-2'>
         <div>
           <label
             htmlFor='title'
@@ -115,10 +140,11 @@ function IdeaEditPage() {
 
         <div className='mt-5'>
           <button
+            disabled={isPending}
             type='submit'
             className='block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed'
           >
-            Save Changes
+            {isPending ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
       </form>
