@@ -7,7 +7,7 @@ import IdeaCard from '@/components/IdeaCard';
 const ideasQueryOptions = () =>
   queryOptions({
     queryKey: ['ideas'],
-    queryFn: fetchIdeas,
+    queryFn: () => fetchIdeas(),
   });
 
 export const Route = createFileRoute('/ideas/')({
@@ -21,11 +21,7 @@ export const Route = createFileRoute('/ideas/')({
 });
 
 function IdeasPage() {
-  const { data } = useSuspenseQuery(ideasQueryOptions());
-
-  const ideas = [...data].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
   // console.log(ideas);
 
   return (
