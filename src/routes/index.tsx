@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { Lightbulb } from 'lucide-react';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
@@ -21,7 +21,12 @@ function App() {
   const { data: ideas } = useSuspenseQuery(ideasQueryOptions);
   // console.log(ideas);
 
-  const latestIdeas = [...ideas].sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 3);
+  const latestIdeas = [...ideas]
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 3);
 
   return (
     <div className='flex flex-col md:flex-row items-start justify-between gap-10 p-6 text-blue-600'>
@@ -41,17 +46,17 @@ function App() {
         </h2>
         <div className='space-y-6'>
           {latestIdeas.map((idea) => (
-            <IdeaCard key={idea.id} idea={idea} button={false} />
+            <IdeaCard key={idea._id} idea={idea} button={false} />
           ))}
         </div>
 
         <div className='mt-6'>
-          <a
-            href='/ideas'
+          <Link
+            to='/ideas'
             className='w-full text-center inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-md transition'
           >
             View All Ideas
-          </a>
+          </Link>
         </div>
       </section>
     </div>
