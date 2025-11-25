@@ -1,4 +1,12 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from 'react';
+
+import { refreshAccessToken } from '@/api/auth';
 
 type AuthContextType = {
   accessToken: string | null;
@@ -17,6 +25,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [user, setUser] = useState<AuthContextType['user'] | null>(null);
 
+  useEffect(() => {
+    const loadAuth = async () => {
+      try {
+        const { accessToken: newToken, user } = await refreshAccessToken();
+        setAccessToken(newToken);
+        setUser(user);
+      } catch (error) {
+        console.error('Failed to refresh access token.', error);
+      }
+    };
+    loadAuth();
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{ accessToken, setAccessToken, user, setUser }}
@@ -28,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if(!context) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
