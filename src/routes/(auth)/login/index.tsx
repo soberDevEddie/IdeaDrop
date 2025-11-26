@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { loginUser } from '@/api/auth';
@@ -32,7 +32,7 @@ function LoginPage() {
     e.preventDefault();
     setError('');
     await mutateAsync({ email, password });
-  }
+  };
 
   return (
     <div className='max-w-md mx-auto'>
